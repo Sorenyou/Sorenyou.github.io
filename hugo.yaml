@@ -1,96 +1,115 @@
 baseURL: https://example.org/
-languageCode: zh-cn
+locale: zh-cn
 title: 雪邮的博客
-theme: PaperMod
+theme: stack
 
-# 启用 emoji 支持
+defaultContentLanguage: zh-cn
+hasCJKLanguage: true
+
 enableEmoji: true
-# 生成 robots.txt
 enableRobotsTXT: true
-# 每页文章数
+
 pagination:
   pagerSize: 10
 
-# 构建设置
 buildDrafts: false
 buildFuture: false
 buildExpired: false
 
-# 输出格式 (RSS)
 outputs:
   home:
     - HTML
     - RSS
-    - JSON
 
-# 站点参数
+permalinks:
+  post: /p/:slug/
+  page: /:slug/
+
 params:
-  env: production
-  title: 雪邮的博客
+  mainSections:
+    - post
+  rssFullContent: true
   description: "分享技术、生活与思考"
   author: 雪邮
 
-  # 默认主题: auto / light / dark
-  defaultTheme: auto
-  # 显示主题切换按钮
-  ShowThemeToggle: true
+  # 侧边栏
+  sidebar:
+    emoji: ""
+    subtitle: "分享技术、生活与思考"
+    avatar: ""
 
-  ShowReadingTime: true
-  ShowShareButtons: true
-  ShowPostNavLinks: true
-  ShowBreadCrumbs: true
-  ShowCodeCopyButtons: true
-  ShowWordCount: true
-  ShowRssButtonInSectionTermList: true
-  UseHugoToc: true
+  # 页脚
+  footer:
+    since: 2026
 
-  # 首页信息模式
-  homeInfoParams:
-    Title: "你好，欢迎来到雪邮的博客"
-    Content: "分享技术、生活与思考"
+  # 文章设置
+  article:
+    toc: true
+    readingTime: true
+    headingAnchor: false
+    license:
+      enabled: false
+      default: "Licensed under CC BY-NC-SA 4.0"
 
-  # 社交图标 (按需修改)
-  socialIcons:
-    - name: github
-      url: "https://github.com/"
-    - name: rss
-      url: "index.xml"
+  # 主题切换
+  colorScheme:
+    toggle: true
+    default: auto
 
-  # 搜索
-  fuseOpts:
-    isCaseSensitive: false
-    shouldSort: true
-    location: 0
-    distance: 1000
-    threshold: 0.4
-    minMatchCharLength: 0
-    keys: ["title", "permalink", "summary", "content"]
+  # 侧边栏小部件
+  widgets:
+    homepage:
+      - type: search
+      - type: archives
+        params:
+          limit: 5
+      - type: categories
+        params:
+          limit: 10
+      - type: tag-cloud
+        params:
+          limit: 10
+    page:
+      - type: toc
 
-# 菜单
+  # 评论（暂时关闭）
+  comments:
+    enabled: false
+
+  imageProcessing:
+    content:
+      enabled: true
+    thumbnail:
+      enabled: true
+
+# 社交链接
 menu:
-  main:
-    - identifier: search
-      name: 搜索
-      url: /search/
-      weight: 1
-    - identifier: archives
-      name: 归档
-      url: /archives/
-      weight: 2
-    - identifier: categories
-      name: 分类
-      url: /categories/
-      weight: 3
-    - identifier: tags
-      name: 标签
-      url: /tags/
-      weight: 4
+  social:
+    - identifier: github
+      name: GitHub
+      url: https://github.com/
+      params:
+        icon: brand-github
+    - identifier: rss
+      name: RSS
+      url: /index.xml
+      params:
+        icon: rss
 
 # Markdown 渲染设置
 markup:
   goldmark:
     renderer:
       unsafe: true
+  tableOfContents:
+    endLevel: 4
+    ordered: true
+    startLevel: 2
   highlight:
     noClasses: false
-    style: dracula
+    codeFences: true
+    guessSyntax: true
+    lineNoStart: 1
+    lineNos: true
+    lineNumbersInTable: true
+    tabWidth: 4
