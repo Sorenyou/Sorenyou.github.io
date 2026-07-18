@@ -1,0 +1,96 @@
+baseURL: https://example.org/
+languageCode: zh-cn
+title: 雪邮的博客
+theme: PaperMod
+
+# 启用 emoji 支持
+enableEmoji: true
+# 生成 robots.txt
+enableRobotsTXT: true
+# 每页文章数
+pagination:
+  pagerSize: 10
+
+# 构建设置
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+# 输出格式 (RSS)
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+# 站点参数
+params:
+  env: production
+  title: 雪邮的博客
+  description: "分享技术、生活与思考"
+  author: 雪邮
+
+  # 默认主题: auto / light / dark
+  defaultTheme: auto
+  # 显示主题切换按钮
+  ShowThemeToggle: true
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+
+  # 首页信息模式
+  homeInfoParams:
+    Title: "你好，欢迎来到雪邮的博客"
+    Content: "分享技术、生活与思考"
+
+  # 社交图标 (按需修改)
+  socialIcons:
+    - name: github
+      url: "https://github.com/"
+    - name: rss
+      url: "index.xml"
+
+  # 搜索
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+# 菜单
+menu:
+  main:
+    - identifier: search
+      name: 搜索
+      url: /search/
+      weight: 1
+    - identifier: archives
+      name: 归档
+      url: /archives/
+      weight: 2
+    - identifier: categories
+      name: 分类
+      url: /categories/
+      weight: 3
+    - identifier: tags
+      name: 标签
+      url: /tags/
+      weight: 4
+
+# Markdown 渲染设置
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+    style: dracula
