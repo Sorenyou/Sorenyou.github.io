@@ -408,7 +408,7 @@ Md5.prototype.hash = function() {
 | 首块偏移 | `-1316259209` | int32 | 首块专用 |
 | 版本号 | `"997"` | string | 固定值 |
 | 终端类型 | `"wap"` | string | Wap端固定 |
-| AES默认密钥 | `"0RGF99CtUajPF0Ny"` | string | 加密分支（未启用） |
+| AES默认密钥 | `"****************"` | string | 加密分支（未启用，已脱敏） |
 
 ---
 

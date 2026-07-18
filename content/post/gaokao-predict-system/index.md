@@ -10,7 +10,7 @@ summary: "一个完整的高考志愿填报辅助系统的技术剖析，涵盖 
 > **文档版本**: v1.0
 > **撰写日期**: 2026-07-18
 > **作者**: kris
-> **项目状态**: 线上运行中（gaokao.711110.xyz）
+> **项目状态**: 线上运行中
 > **技术栈**: Python / Flask / pandas / pdfplumber / SheetJS
 
 ---
@@ -62,7 +62,7 @@ summary: "一个完整的高考志愿填报辅助系统的技术剖析，涵盖 
 | 数据源 | 重庆市教育考试院（cqzk.com.cn） | PDF 格式，需逆向解析 |
 | 后端 | Python 3.10+ / Flask 3.1 | Railway 部署 |
 | 前端 | Bootstrap 5 / Jinja2 模板 | SSR + API 双模式 |
-| 域名 | gaokao.711110.xyz | Cloudflare CDN |
+| 域名 | gaokao.example.com | Cloudflare CDN |
 | 数据格式 | Excel (.xlsx) | pandas + openpyxl 处理 |
 
 ---
@@ -88,7 +88,7 @@ summary: "一个完整的高考志愿填报辅助系统的技术剖析，涵盖 
 用户浏览器 / 微信小程序
         │
         ▼
-  Cloudflare CDN (gaokao.711110.xyz)
+  Cloudflare CDN (gaokao.example.com)
         │
         ▼
   Railway (gunicorn)
@@ -1523,7 +1523,7 @@ def build_export_rows(payload: dict) -> list:
 ```python
 # 后台路径可通过环境变量自定义，默认使用不可猜测的路径
 ADMIN_PATH = normalize_admin_path(
-    os.environ.get("ADMIN_PATH", "/ops-console-kris-1027")
+    os.environ.get("ADMIN_PATH", "/admin-<your-secret-path>")
 )
 
 # 登录认证基于 Flask session
@@ -1569,7 +1569,7 @@ def admin_page():
         # ── 登录 ──
         if action == "login":
             pwd = request.form.get("password", "")
-            if pwd == os.environ.get("ADMIN_PASSWORD", ""):
+            if not admin_pw or pwd != admin_pw:  # 未设置密码时拒绝登录
                 session["admin_ok"] = True
                 message = "登录成功"
             else:
@@ -1897,7 +1897,7 @@ function bindTierFilter() {
 ```javascript
 // wechat_miniprogram/config.js
 module.exports = {
-  API_BASE: 'https://gaokao.711110.xyz'
+  API_BASE: 'https://gaokao.example.com'
 };
 ```
 
@@ -2205,7 +2205,7 @@ web: gunicorn app:app --workers 2 --threads 4 --worker-class gthread --bind 0.0.
 @app.route("/reload", methods=["POST"])
 def reload_data():
     token = request.headers.get("X-Admin-Token", "")
-    if token != os.environ.get("RELOAD_TOKEN", ""):
+    if not required_token or token != required_token:  # 未设置 token 时拒绝
         return {"ok": False, "message": "unauthorized"}, 403
     engine.reload()  # 重新扫描所有数据文件
     return {"ok": True, "message": "数据已重新加载"}

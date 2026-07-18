@@ -2515,7 +2515,7 @@ const supabase = createClient(
 
 // 解决：在 R2 Bucket 设置 CORS 策略
 {
-  "AllowedOrigins": ["https://chilichill.vercel.app", "http://localhost:3000"],
+  "AllowedOrigins": ["https://your-app.vercel.app", "http://localhost:3000"],
   "AllowedMethods": ["PUT", "GET"],
   "AllowedHeaders": ["Content-Type"],
   "ExposeHeaders": ["ETag"],
