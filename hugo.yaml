@@ -36,7 +36,7 @@ params:
   sidebar:
     emoji: ""
     subtitle: "分享技术、生活与思考"
-    avatar: ""
+    avatar: "img/avatar.jpg"
 
   # 页脚
   footer:
